@@ -82,7 +82,7 @@ fun HomeScreen(
                     items(
                         count = articles.itemCount,
                         key = articles.itemKey {
-                            it.url
+                            it.id
                         }
                     ) {
                         val item = articles[it]

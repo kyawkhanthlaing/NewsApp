@@ -20,7 +20,6 @@ class ArticleRemoteMediator @Inject constructor(
     private val newsDb: NewsDatabase,
 ) : RemoteMediator<Int, ArticleEntity>() {
     private var query: String = ""
-    private var currentPage: Int = 1
 
     fun withQuery(query: String): ArticleRemoteMediator {
         this.query = query
@@ -32,29 +31,24 @@ class ArticleRemoteMediator @Inject constructor(
         state: PagingState<Int, ArticleEntity>,
     ): MediatorResult {
         return try {
-            val loadKey = when (loadType) {
-                LoadType.REFRESH -> {
-                    currentPage = 1
-                    1
-                }
+            val loadKey = when(loadType) {
+                LoadType.REFRESH -> 1
                 LoadType.PREPEND -> return MediatorResult.Success(
                     endOfPaginationReached = true
                 )
-
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        currentPage = 1
+                    if(lastItem == null) {
                         1
                     } else {
-                        currentPage+1
+                        (lastItem.id / state.config.pageSize) + 1
                     }
                 }
             }
 
             val data = newsApi.getNewsArticles(
                 page = loadKey,
-                pageSize = 10,
+                pageSize = state.config.pageSize,
                 query = query
             )
 
