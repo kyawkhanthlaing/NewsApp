@@ -56,7 +56,6 @@ object AppModule {
             .apply {
                 if (BuildConfig.DEBUG) {
                     addInterceptor(loggingInterceptor)
-                    addInterceptor(ChuckerInterceptor(context))
                 }
             }
             .build()
