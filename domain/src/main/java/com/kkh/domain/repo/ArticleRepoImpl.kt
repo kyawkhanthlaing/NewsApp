@@ -20,7 +20,7 @@ class ArticleRepoImpl @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override fun getArticlePaging(query: String): Flow<PagingData<ArticleItem>> {
         return Pager(
-            config = PagingConfig(pageSize = 50),
+            config = PagingConfig(pageSize = 10),
             remoteMediator = remoteDataSource.withQuery(query),
             pagingSourceFactory = {
                 localDataSource.getArticlePagingSource()

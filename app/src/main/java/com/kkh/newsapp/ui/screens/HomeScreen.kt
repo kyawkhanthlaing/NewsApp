@@ -48,7 +48,7 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 3.dp)) {
+            Box(modifier = Modifier.padding(horizontal = 16.dp)) {
                 TextField(
                     value = searchText,
                     onValueChange = viewModel::onSearchTextChanged,
@@ -67,7 +67,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(8.dp)
+                .padding(16.dp)
         ) {
             if (articles.loadState.refresh is LoadState.Loading) {
                 CircularProgressIndicator(
@@ -82,7 +82,7 @@ fun HomeScreen(
                     items(
                         count = articles.itemCount,
                         key = articles.itemKey {
-                            it.id
+                            it.url
                         }
                     ) {
                         val item = articles[it]

@@ -7,7 +7,7 @@ import com.kkh.data.datasource.local.db.entity.ArticleEntity
 
 @Database(
     entities = [ArticleEntity::class],
-    version = 1
+    version = 2
 )
 abstract class NewsDatabase: RoomDatabase() {
 

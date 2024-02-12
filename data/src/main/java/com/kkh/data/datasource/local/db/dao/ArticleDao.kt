@@ -10,7 +10,7 @@ import com.kkh.data.datasource.local.db.entity.ArticleEntity
 interface ArticleDao {
 
     @Upsert
-    suspend fun insertAll(articles: List<ArticleEntity>)
+    suspend fun upsertAll(articles: List<ArticleEntity>)
 
     @Query("SELECT * FROM Article")
     fun pagingSource(): PagingSource<Int, ArticleEntity>

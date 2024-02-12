@@ -33,7 +33,9 @@ object AppModule {
             context,
             NewsDatabase::class.java,
             "NewsDB"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -52,7 +54,7 @@ object AppModule {
             .Builder()
             .addInterceptor(headerInterceptor)
             .apply {
-                if(BuildConfig.DEBUG){
+                if (BuildConfig.DEBUG) {
                     addInterceptor(loggingInterceptor)
                     addInterceptor(ChuckerInterceptor(context))
                 }
@@ -77,7 +79,7 @@ object AppModule {
     fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
     }
-    
+
 }
 
 
